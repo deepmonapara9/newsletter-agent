@@ -1,0 +1,11 @@
+requests
+aiohttp
+asyncio
+google-generativeai
+python-dotenv
+mermaid-py
+playwright
+boto3
+fastapi
+uvicorn
+certifi
