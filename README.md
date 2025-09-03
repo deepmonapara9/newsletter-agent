@@ -73,6 +73,11 @@ An AI-powered newsletter generator that analyzes GitHub repositories and creates
    ```bash
    uv venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   
+   # Install from pyproject.toml (recommended)
+   uv pip install -e .
+   
+   # Or install from requirements.txt
    uv pip install -r requirements.txt
    ```
    
@@ -174,9 +179,13 @@ curl -X POST "http://127.0.0.1:8000/newsletter" \
 ```
 newsletter-agent/
 ├── main.py                 # FastAPI application and main logic
-├── requirements.txt        # Python dependencies
+├── pyproject.toml         # Modern Python project configuration
+├── requirements.txt        # Python dependencies (legacy)
 ├── .env                   # Environment variables (create this)
 ├── .gitignore            # Git ignore rules
+├── LICENSE               # MIT License
+├── README.md             # This documentation
+├── setup.sh              # Automated setup script
 └── lib/                  # Core modules
     ├── agent_template.py  # AI agent prompts and templates
     ├── file_reader.py     # File system utilities
@@ -263,6 +272,45 @@ This project uses [uv](https://docs.astral.sh/uv/) for fast and reliable Python 
 - ⚡ **10-100x faster** than pip for package installation
 - 🔒 **More reliable** dependency resolution
 - 🚀 **Modern Python tooling** with better caching
+
+
+### Development Setup
+
+For contributors, install development dependencies:
+
+```bash
+# Using uv (recommended)
+uv pip install -e ".[dev]"
+
+# Using pip
+pip install -e ".[dev]"
+```
+
+This includes tools like:
+- `pytest` - Testing framework
+- `black` - Code formatting
+- `isort` - Import sorting
+- `flake8` - Linting
+- `mypy` - Type checking
+
+### Code Quality
+
+Run code quality checks:
+
+```bash
+# Format code
+black .
+isort .
+
+# Lint code
+flake8 .
+
+# Type checking
+mypy .
+
+# Run tests
+pytest
+```
 
 ## 📄 License
 

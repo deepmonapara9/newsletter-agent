@@ -14,21 +14,30 @@ fi
 
 echo "✅ Python version: $python_version"
 
-# Create virtual environment
-echo "📦 Creating virtual environment..."
-python3 -m venv venv
+# Check if uv is installed
+if command -v uv >/dev/null 2>&1; then
+    echo "✅ uv is already installed"
+else
+    echo "📦 Installing uv..."
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    source $HOME/.cargo/env
+fi
+
+# Create virtual environment using uv
+echo "� Creating virtual environment with uv..."
+uv venv
 
 # Activate virtual environment
 echo "🔧 Activating virtual environment..."
-source venv/bin/activate
+source .venv/bin/activate
 
-# Upgrade pip
-echo "⬆️  Upgrading pip..."
-pip install --upgrade pip
+# Install dependencies using uv
+echo "📚 Installing dependencies with uv..."
+uv pip install -r requirements.txt
 
-# Install dependencies
-echo "📚 Installing dependencies..."
-pip install -r requirements.txt
+# Install development dependencies (optional)
+echo "�️  Installing development dependencies..."
+uv pip install -e ".[dev]"
 
 # Install Playwright browsers
 echo "🌐 Installing Playwright browsers..."
@@ -54,7 +63,9 @@ echo "🎉 Setup complete!"
 echo ""
 echo "Next steps:"
 echo "1. Edit .env file with your API keys"
-echo "2. Activate the environment: source venv/bin/activate"
+echo "2. Activate the environment: source .venv/bin/activate"
 echo "3. Start the server: uvicorn main:app --reload"
 echo ""
 echo "📖 Check README.md for detailed configuration instructions"
+echo ""
+echo "💡 Pro tip: Use 'uv pip install <package>' for lightning-fast package installation!"
